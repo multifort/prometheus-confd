@@ -1,0 +1,17 @@
+global:
+  scrape_interval: 15s
+  external_labels:
+    monitor: 'codelab-monitor'
+scrape_configs:
+  - job_name: 'prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['localhost:9090']
+{{range $service_name := getvs "/exporter/*"}}
+  - job_name: '{{$service_name}}'
+    scrape_interval: 5s
+    static_configs:
+    {{$cutdir := printf "/exporter/%s/*" $service_name}}
+    {{$addr := getvs $cutdir}}
+      - targets: ['{{join $addr ","}}']
+{{end}}

@@ -1,0 +1,11 @@
+[template]
+prefix = "/asm"
+src = "prometheus.conf.tmpl"
+dest = "/etc/prometheus/prometheus.yml"
+mode = "0644"
+keys = [
+ "/exporter",
+]
+reload_cmd = ' /bin/curl -XPOST "http://127.0.0.1:9090/-/reload" '
+
+
