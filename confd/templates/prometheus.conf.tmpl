@@ -13,5 +13,5 @@ scrape_configs:
     static_configs:
     {{$cutdir := printf "/exporter/%s/*" $service_name}}
     {{$addr := getvs $cutdir}}
-      - targets: ['{{join $addr ","}}']
+      - targets: ['{{join $addr "','"}}']
 {{end}}
